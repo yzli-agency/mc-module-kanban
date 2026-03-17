@@ -1,0 +1,38 @@
+{
+  "$schema": "https://mission-control.yzli.io/schemas/manifest-v1.json",
+  "id": "yzli/kanban",
+  "name": "Kanban Board",
+  "version": "1.0.0",
+  "description": "Tableau kanban avec auto-trigger d'agents, suggestions IA, et live stream.",
+  "author": { "name": "Yzli Studio", "email": "dev@yzli.io" },
+  "license": "MIT",
+  "repository": "git@github.com:yzli-agency/mc-module-kanban.git",
+  "mc_version": ">=2.0.0",
+  "dependencies": [
+    { "slug": "yzli/clients", "version": ">=1.0.0" },
+    { "slug": "yzli/agents", "version": ">=1.0.0" }
+  ],
+  "visibility": "team",
+  "hooks": {
+    "install": "install.sh",
+    "uninstall": "uninstall.sh"
+  },
+  "backend": {
+    "routes": "backend/routes.py",
+    "mount_prefix": "/api/kanban-v2"
+  },
+  "frontend": {
+    "view": "frontend/view.js",
+    "nav_item": {
+      "label": "Kanban",
+      "icon": "ph-clipboard-text",
+      "view_id": "kanban-v2",
+      "sort_order": 3
+    }
+  },
+  "db": {
+    "tables": ["kanban_cards", "kanban_history"],
+    "migrations": "backend/migrations/"
+  },
+  "permissions": ["kanban.read", "kanban.write", "kanban.admin"]
+}
